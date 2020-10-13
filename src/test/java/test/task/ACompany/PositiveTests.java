@@ -36,6 +36,29 @@ public class PositiveTests extends BaseTest {
                 .statusCode(200);
     }
 
+    @Test(description = "Check MainTypes returns empty wkda if wrong parameter used")
+    public void testEmptyBodyMainTypes() {
+        given().queryParam("wa_key", wa_key)
+                .queryParam("manufacturer", "999")
+                .when()
+                .get(baseURI + endpointMainTypes)
+                .then().log().all()
+                .assertThat()
+                .body("wkda.size()", equalTo(0));
+    }
+
+    @Test(description = "Check BuiltDates returns empty wkda if wrong parameter used")
+    public void testEmptyBodyBuiltDates() {
+        given().queryParam("wa_key", wa_key)
+                .queryParam("manufacturer", "999")
+                .queryParam("main-type", "999")
+                .when()
+                .get(baseURI + endpointBuiltDates)
+                .then().log().all()
+                .assertThat()
+                .body("wkda.size()", equalTo(0));
+    }
+
     @Test(description = "Check call returns correct amount of manufacturers")
     public void testAmountOfManufacturers() {
         given().queryParam("wa_key", wa_key)
