@@ -47,7 +47,7 @@ public class PositiveTests extends BaseTest {
     }
 
 
-    @Test(description = "Check call returns specific use case")
+    @Test(description = "Check specific use case")
     public void testSpecificUseCase() {
 
         String code = "460";
