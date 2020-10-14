@@ -36,7 +36,7 @@ public class PositiveTests extends BaseTest {
                 .statusCode(200);
     }
 
-    @Test(description = "Check MainTypes returns empty wkda if wrong parameter used")
+    @Test(description = "Check MainTypes returns 404 Not found if wrong parameter used")
     public void testEmptyBodyMainTypes() {
         given().queryParam("wa_key", wa_key)
                 .queryParam("manufacturer", "999")
@@ -44,10 +44,10 @@ public class PositiveTests extends BaseTest {
                 .get(baseURI + endpointMainTypes)
                 .then().log().all()
                 .assertThat()
-                .body("wkda.size()", equalTo(0));
+                .statusCode(404); //Test fails because we expect 404 Not found returned by server instead of 200
     }
 
-    @Test(description = "Check BuiltDates returns empty wkda if wrong parameter used")
+    @Test(description = "Check BuiltDates returns 404 Not found if wrong parameter used")
     public void testEmptyBodyBuiltDates() {
         given().queryParam("wa_key", wa_key)
                 .queryParam("manufacturer", "999")
@@ -56,7 +56,7 @@ public class PositiveTests extends BaseTest {
                 .get(baseURI + endpointBuiltDates)
                 .then().log().all()
                 .assertThat()
-                .body("wkda.size()", equalTo(0));
+                .statusCode(404); //Test fails because we expect 404 Not found returned by server instead of 200
     }
 
     @Test(description = "Check call returns correct amount of manufacturers")
@@ -66,7 +66,7 @@ public class PositiveTests extends BaseTest {
                 .get(baseURI + endpointManufacturer)
                 .then().log().all()
                 .assertThat()
-                .body("wkda.size()", equalTo(79));
+                .body("wkda.size()", equalTo(79)); //Sometimes test fails due to extra key-value "20": "Abarth" which appears in '/v1/car-types/manufacturer'
     }
 
 
